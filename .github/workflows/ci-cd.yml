@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Flask CI Pipeline
 
 on:
   push:
@@ -11,28 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repo
     - name: Checkout
       uses: actions/checkout@v4
 
-    # Setup Python
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: "3.11"
 
-    # Install dependencies
-    - name: Install Dependencies
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # Run tests (skip if no tests)
-    - name: Run Tests
+    - name: Syntax check
       run: |
-        echo "No tests configured yet"
-
-    # Run the app (for validation)
-    - name: Run App
-      run: |
-        python app.py
+        python -m py_compile app.py
